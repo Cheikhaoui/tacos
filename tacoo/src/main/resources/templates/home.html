@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="UTF-8">
     <title>Tacos Home</title>
-    <link href="bootstrap-5.1.0-dist/css/bootstrap.css" rel="stylesheet">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}">
 </head>
-
 <body>
-        <h1>Welcome to Tacos  </h1>
-        <img th:src="@{/images/tacoCloud.png}"/>
+<div class="container">
+        <h1>Welcome to Tacos</h1>
+    <form th:action="@{/log}">
+        <button type="submit" class="btn btn-dark" >Come IN</button>
+    </form>
+    <img th:src="@{/images/tacoCloud.png}"/>
+</div>
+
 </body>
 
 </html>

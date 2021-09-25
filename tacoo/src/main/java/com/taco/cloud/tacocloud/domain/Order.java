@@ -29,6 +29,8 @@ public class Order {
     private Date placedAt;
     @ManyToMany(targetEntity = Taco.class)
     private List<Taco> tacos;
+    @ManyToOne
+    private User user;
 
     @PrePersist
     void placedAt(){

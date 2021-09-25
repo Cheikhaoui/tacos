@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Customise your Tacoo</title>
-    <link href="bootstrap-5.1.0-dist/css/bootstrap.css" rel="stylesheet">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-8">
+    <div class="d-flex  justify-content-around">
+        <div class="p-2 bd-highlight">
         <h1> Create your own Tacoo !!! </h1>
+        </div>
+        <div class="p-2 bd-highlight">
+        </div>
+        <div class="p-2 bd-highlight">
+        <form th:action="@{/logout}">
+            <button type="submit" class="btn btn-dark" th:action="@{/logout}">LOG OUT</button>
+        </form>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -17,6 +24,7 @@
             <img th:src="@{/images/tacoCloud.png}"/>
         </div>
     </div>
+
     <form method="POST">
         <div class="row">
             <div class="col-sm">
@@ -71,6 +79,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
+        <!--input type="hidden" name="_csrf" th:value="${_csrf.token}"/-->
     </form>
 </div>
 </body>

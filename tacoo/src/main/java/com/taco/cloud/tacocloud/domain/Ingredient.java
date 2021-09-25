@@ -16,6 +16,8 @@ public class Ingredient {
     @Id
     private String id;
     private String name;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private IngredientType ingredientType;
 
 }
