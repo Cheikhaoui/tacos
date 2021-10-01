@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,6 +29,7 @@ public class Order {
     private String ccCVV;
     private Date placedAt;
     @ManyToMany(targetEntity = Taco.class)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Taco> tacos;
     @ManyToOne
     private User user;

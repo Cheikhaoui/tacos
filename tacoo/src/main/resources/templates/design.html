@@ -30,21 +30,21 @@
             <div class="col-sm">
                 <h5 class="mx-4">Designate your wrap:</h5>
                 <div class="mx-4 form-check" th:each="ingredient : ${wrap}">
-                    <input type="checkbox" class="form-check-input" th:id="${ingredient.id}">
+                    <input type="checkbox" name="ingredients"  class="form-check-input" th:value="${ingredient.id}" th:id="${ingredient.id}">
                     <label class="form-check-label" th:for="${ingredient.id}" th:text="${ingredient.name}"></label>
                 </div>
             </div>
             <div class="col-sm">
                 <h5 class="mx-4">Pick your protein:</h5>
                 <div class="mx-4 form-check" th:each="ingredient : ${protein}">
-                    <input type="checkbox" class="form-check-input" th:id="${ingredient.id}">
+                    <input type="checkbox" name="ingredients" th:value="${ingredient.id}" class="form-check-input" th:id="${ingredient.id}">
                     <label class="form-check-label" th:for="${ingredient.id}" th:text="${ingredient.name}"></label>
                 </div>
             </div>
             <div class="col-sm">
         <h5 class="mx-4">Choose your cheese:</h5>
         <div class="mx-4 form-check" th:each="ingredient : ${cheese}">
-            <input type="checkbox" class="form-check-input" th:id="${ingredient.id}">
+            <input type="checkbox" name="ingredients" class="form-check-input" th:id="${ingredient.id}" th:value="${ingredient.id}">
             <label class="form-check-label" th:for="${ingredient.id}" th:text="${ingredient.name}"></label>
         </div>
             </div>
@@ -53,14 +53,14 @@
             <div class="col-sm">
         <h5 class="mx-4">Determine your veggies:</h5>
         <div class="mx-4 form-check" th:each="ingredient : ${veggies}">
-            <input type="checkbox" class="form-check-input" th:id="${ingredient.id}">
+            <input type="checkbox" name="ingredients" class="form-check-input" th:id="${ingredient.id}" th:value="${ingredient.id}">
             <label class="form-check-label" th:for="${ingredient.id}" th:text="${ingredient.name}"></label>
         </div>
             </div>
             <div class="col-sm">
             <h5 class="mx-4">Select your sauce:</h5>
         <div class="mx-4 form-check" th:each="ingredient : ${sauce}">
-            <input type="checkbox" class="form-check-input" th:id="${ingredient.id}">
+            <input type="checkbox" name="ingredients" class="form-check-input" th:id="${ingredient.id}" th:value="${ingredient.id}">
             <label class="form-check-label" th:for="${ingredient.id}" th:text="${ingredient.name}"></label>
         </div>
             </div>
@@ -73,7 +73,7 @@
             <h5 class="">Name your Tacoo :</h5>
             </div>
             <div class="col-md-4 ">
-                <input type="text" class="form-control " placeholder="Name"/>
+                <input name="name" type="text" class="form-control " placeholder="Name"/>
             </div>
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary">Submit</button>

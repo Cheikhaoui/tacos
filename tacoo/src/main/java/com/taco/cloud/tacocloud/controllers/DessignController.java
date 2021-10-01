@@ -1,18 +1,13 @@
 package com.taco.cloud.tacocloud.controllers;
 
-import com.taco.cloud.tacocloud.domain.Ingredient;
-import com.taco.cloud.tacocloud.domain.IngredientType;
-import com.taco.cloud.tacocloud.domain.Order;
-import com.taco.cloud.tacocloud.domain.User;
+import com.taco.cloud.tacocloud.domain.*;
 import com.taco.cloud.tacocloud.repositories.IngredientRepository;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/design")
+@SessionAttributes("order")
 public class DessignController {
 
     private final IngredientRepository ingredientRepository;
@@ -42,16 +38,24 @@ public class DessignController {
     }
 
     @PostMapping
-    public String processCreateTaco(Model model, @AuthenticationPrincipal User user) {
-        Order order = new Order();
+    public String processCreateTaco(Model model, @AuthenticationPrincipal User user, @Valid Taco taco,@ModelAttribute Order orderAttribute) {
         model.addAttribute("user", user);
-        order.setDeliveryName(user.getUsername());
-        order.setDeliveryCity(user.getCity());
-        order.setDeliveryState(user.getState());
-        order.setDeliveryStreet(user.getStreet());
-        order.setDeliveryZip(user.getZip());
-        order.setUser(user);
-        model.addAttribute("order", order);
+        orderAttribute.setDeliveryName(user.getUsername());
+        orderAttribute.setDeliveryCity(user.getCity());
+        orderAttribute.setDeliveryState(user.getState());
+        orderAttribute.setDeliveryStreet(user.getStreet());
+        orderAttribute.setDeliveryZip(user.getZip());
+        orderAttribute.setUser(user);
+        if(orderAttribute.getTacos() == null){
+            orderAttribute.setTacos(new ArrayList<>());
+        }
+        orderAttribute.getTacos().add(taco);
         return "order";
     }
+
+    @ModelAttribute(name = "order")
+    public Order getOrder(){
+        return new Order();
+    }
+
 }
