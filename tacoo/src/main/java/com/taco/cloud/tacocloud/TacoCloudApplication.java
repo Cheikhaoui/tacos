@@ -1,7 +1,11 @@
 package com.taco.cloud.tacocloud;
 
+import com.taco.cloud.tacocloud.consumers.IngredientConsumer;
 import com.taco.cloud.tacocloud.controllers.RegistrationForm;
+import com.taco.cloud.tacocloud.domain.Ingredient;
+import com.taco.cloud.tacocloud.domain.IngredientType;
 import com.taco.cloud.tacocloud.domain.User;
+import com.taco.cloud.tacocloud.repositories.IngredientRepository;
 import com.taco.cloud.tacocloud.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +25,10 @@ public class TacoCloudApplication {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    IngredientConsumer ingredientConsumer;
+    @Autowired
+    IngredientRepository ingredientRepository;
     @Bean
     CommandLineRunner commandLineRunner(){
         return new CommandLineRunner() {
@@ -31,6 +39,14 @@ public class TacoCloudApplication {
                 registrationForm.setUsername(user.getUsername());
                 registrationForm.setPassword(user.getPassword());
                 userRepository.save(registrationForm.toUser(passwordEncoder));
+                Ingredient ingredientSaved = new Ingredient("test","name", IngredientType.CHEESE);
+               //ajouter ingredient
+                ingredientConsumer.postIngredient(ingredientSaved);
+                //chercher ingredient
+                Ingredient ingredient = ingredientConsumer.getIngredient("test");
+                System.out.println(ingredient);
+                //delete ingredient
+                ingredientConsumer.deleteIngredient("test");
             }
         };
     }
