@@ -1,9 +1,11 @@
 package com.taco.cloud.tacocloud;
 
+import com.taco.cloud.tacocloud.activemq.OrderMessage;
 import com.taco.cloud.tacocloud.consumers.IngredientConsumer;
 import com.taco.cloud.tacocloud.controllers.RegistrationForm;
 import com.taco.cloud.tacocloud.domain.Ingredient;
 import com.taco.cloud.tacocloud.domain.IngredientType;
+import com.taco.cloud.tacocloud.domain.Order;
 import com.taco.cloud.tacocloud.domain.User;
 import com.taco.cloud.tacocloud.repositories.IngredientRepository;
 import com.taco.cloud.tacocloud.repositories.UserRepository;
@@ -29,6 +31,8 @@ public class TacoCloudApplication {
     IngredientConsumer ingredientConsumer;
     @Autowired
     IngredientRepository ingredientRepository;
+    @Autowired
+    OrderMessage orderMessage;
     @Bean
     CommandLineRunner commandLineRunner(){
         return new CommandLineRunner() {
@@ -47,6 +51,11 @@ public class TacoCloudApplication {
                 System.out.println(ingredient);
                 //delete ingredient
                 ingredientConsumer.deleteIngredient("test");
+                Order order = Order.builder().deliveryCity("casa").deliveryState("casa")
+                        .ccCVV("050").ccExpiration("25/02/2030").deliveryZip("400001").build();
+                orderMessage.sendMessage(order);
+                System.out.println("message sent");
+
             }
         };
     }
